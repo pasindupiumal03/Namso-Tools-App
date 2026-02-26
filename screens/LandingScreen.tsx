@@ -85,22 +85,40 @@ export default function LandingScreen({ navigation }: LandingScreenProps) {
 
           {/* Feature Cards */}
           <View style={styles.featureGrid}>
-            {features.map((feature, index) => (
-              <TouchableOpacity
-                key={index}
-                style={styles.featureCard}
-                activeOpacity={0.7}
-              >
-                <View style={styles.featureIconBg}>
-                  <MaterialIcons
-                    name={feature.icon as any}
-                    size={24}
-                    color="#10B981"
-                  />
-                </View>
-                <Text style={styles.featureTitle}>{feature.title}</Text>
-              </TouchableOpacity>
-            ))}
+            {features.map((feature, index) => {
+              const isPrivateGate = feature.title === "Private Gate";
+              return (
+                <TouchableOpacity
+                  key={index}
+                  style={[
+                    styles.featureCard,
+                    isPrivateGate && styles.premiumFeatureCard,
+                  ]}
+                  activeOpacity={0.7}
+                >
+                  <View
+                    style={[
+                      styles.featureIconBg,
+                      isPrivateGate && styles.premiumIconBg,
+                    ]}
+                  >
+                    <MaterialIcons
+                      name={feature.icon as any}
+                      size={24}
+                      color={isPrivateGate ? "#EAB308" : "#10B981"}
+                    />
+                  </View>
+                  <Text
+                    style={[
+                      styles.featureTitle,
+                      isPrivateGate && styles.premiumFeatureTitle,
+                    ]}
+                  >
+                    {feature.title}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
           </View>
 
           {/* Get Started Button */}
@@ -285,6 +303,11 @@ const styles = StyleSheet.create({
     shadowRadius: 20,
     elevation: 2,
   },
+  premiumFeatureCard: {
+    backgroundColor:  "#14171db4",
+    borderColor: "#faf4d1",
+    shadowColor: "rgba(234, 179, 8, 0.2)",
+  },
   featureIconBg: {
     width: 40,
     height: 40,
@@ -294,11 +317,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 8,
   },
+  premiumIconBg: {
+    backgroundColor: "#faf4d1",
+  },
   featureTitle: {
     fontSize: 12,
     fontWeight: "600" as "600",
     color: "#374151",
     textAlign: "center",
+  },
+  premiumFeatureTitle: {
+    color: "#EAB308",
   },
   getStartedButton: {
     width: "100%",
