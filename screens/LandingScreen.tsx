@@ -88,13 +88,12 @@ export default function LandingScreen({ navigation }: LandingScreenProps) {
             {features.map((feature, index) => {
               const isPrivateGate = feature.title === "Private Gate";
               return (
-                <TouchableOpacity
+                <View
                   key={index}
                   style={[
                     styles.featureCard,
                     isPrivateGate && styles.premiumFeatureCard,
                   ]}
-                  activeOpacity={0.7}
                 >
                   <View
                     style={[
@@ -116,7 +115,7 @@ export default function LandingScreen({ navigation }: LandingScreenProps) {
                   >
                     {feature.title}
                   </Text>
-                </TouchableOpacity>
+                </View>
               );
             })}
           </View>
