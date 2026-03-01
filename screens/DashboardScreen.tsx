@@ -27,24 +27,24 @@ type DashboardScreenProps = {
 export default function DashboardScreen({ navigation }: DashboardScreenProps) {
   const tools = [
     {
-      icon: "search",
-      title: "BIN Checker",
-      description: "Identify bank info from BIN numbers.",
-    },
-    {
       icon: "credit-card",
-      title: "CC Generator",
+      title: "Namso Generator",
       description: "Generate test card numbers.",
     },
     {
       icon: "list-alt",
-      title: "Validation List",
-      description: "Manage your saved valid cards.",
+      title: "Namso Checker",
+      description: "Check validity of generated cards.",
+    },
+    {
+      icon: "search",
+      title: "BIN Checkup",
+      description: "Identify bank info from BIN numbers.",
     },
     {
       icon: "dns",
-      title: "Proxy Check",
-      description: "Test connection anonymity.",
+      title: "Private Gate",
+      description: "Exclusive access for Namso Pro members.",
     },
   ];
 
@@ -101,7 +101,7 @@ export default function DashboardScreen({ navigation }: DashboardScreenProps) {
               {/* Description */}
               <Text style={styles.premiumDescription}>
                 Upgrade to premium for exclusive access to advanced tools and
-                higher limits.
+                higher limits, and priority support.
               </Text>
 
               {/* Activate Button */}
@@ -146,23 +146,52 @@ export default function DashboardScreen({ navigation }: DashboardScreenProps) {
         </View>
 
         <View style={styles.toolsGrid}>
-          {tools.map((tool, index) => (
-            <TouchableOpacity
-              key={index}
-              style={styles.toolCard}
-              activeOpacity={0.7}
-            >
-              <View style={styles.toolIconBg}>
-                <MaterialIcons
-                  name={tool.icon as any}
-                  size={28}
-                  color="#10B981"
-                />
-              </View>
-              <Text style={styles.toolTitle}>{tool.title}</Text>
-              <Text style={styles.toolDescription}>{tool.description}</Text>
-            </TouchableOpacity>
-          ))}
+          {tools.map((tool, index) => {
+            const isPrivateGate = tool.title === "Private Gate";
+
+            if (isPrivateGate) {
+              return (
+                <TouchableOpacity
+                  key={index}
+                  style={styles.privateGateCard}
+                  activeOpacity={0.9}
+                >
+                  <View style={styles.privateGateGlow} />
+
+                  <View style={styles.privateGateIconBg}>
+                    <MaterialIcons name="lock-open" size={26} color="#EAB308" />
+                  </View>
+
+                  <View style={styles.privateGateHeaderRow}>
+                    <Text style={styles.privateGateTitle}>Private Gate</Text>
+                    <MaterialIcons name="star" size={16} color="#EAB308" />
+                  </View>
+
+                  <Text style={styles.privateGateDescription}>
+                    Exclusive access for <Text style={styles.privateGateAccent}>Namso Pro</Text> members.
+                  </Text>
+                </TouchableOpacity>
+              );
+            }
+
+            return (
+              <TouchableOpacity
+                key={index}
+                style={styles.toolCard}
+                activeOpacity={0.7}
+              >
+                <View style={styles.toolIconBg}>
+                  <MaterialIcons
+                    name={tool.icon as any}
+                    size={28}
+                    color="#10B981"
+                  />
+                </View>
+                <Text style={styles.toolTitle}>{tool.title}</Text>
+                <Text style={styles.toolDescription}>{tool.description}</Text>
+              </TouchableOpacity>
+            );
+          })}
         </View>
 
         {/* System Status */}
@@ -173,9 +202,9 @@ export default function DashboardScreen({ navigation }: DashboardScreenProps) {
               <View style={styles.statusDot} />
             </View>
             <View style={styles.statusTextContainer}>
-              <Text style={styles.statusTitle}>System Status</Text>
+              <Text style={styles.statusTitle}>All System Operational</Text>
               <Text style={styles.statusSubtitle}>
-                All APIs are operational. Last update: 2m ago.
+                Gateway: US-East-1 · Latency: 24ms
               </Text>
             </View>
           </View>
@@ -188,24 +217,30 @@ export default function DashboardScreen({ navigation }: DashboardScreenProps) {
           </View>
         </View>
 
-        {/* Footer */}
-        <View style={styles.footer}>
-          <View style={styles.footerLinks}>
-            <TouchableOpacity>
-              <Text style={styles.footerLink}>Privacy</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={styles.footerLink}>Terms</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={styles.footerLink}>Support</Text>
-            </TouchableOpacity>
-          </View>
-          <Text style={styles.copyright}>
-            © 2025 Namso Gen. All rights reserved.
-          </Text>
-        </View>
       </ScrollView>
+
+      {/* Bottom Tab Navigation */}
+      <View style={styles.bottomNav}>
+        <TouchableOpacity style={styles.navItem} activeOpacity={0.7}>
+          <MaterialIcons name="dashboard" size={26} color="#10B981" />
+          <Text style={styles.navLabel}>Tools</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.navItem} activeOpacity={0.7}>
+          <MaterialIcons name="history" size={26} color="#9CA3AF" />
+          <Text style={[styles.navLabel, { color: "#9CA3AF" }]}>History</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.navItem} activeOpacity={0.7}>
+          <MaterialIcons name="account-circle" size={26} color="#9CA3AF" />
+          <Text style={[styles.navLabel, { color: "#9CA3AF" }]}>Profile</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.navItem} activeOpacity={0.7}>
+          <MaterialIcons name="settings" size={26} color="#9CA3AF" />
+          <Text style={[styles.navLabel, { color: "#9CA3AF" }]}>Settings</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -214,6 +249,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F9FAFB",
+    paddingBottom: 70,
   },
   header: {
     flexDirection: "row",
@@ -465,6 +501,60 @@ const styles = StyleSheet.create({
     color: "#6B7280",
     lineHeight: 18,
   },
+  privateGateCard: {
+    width: (width - 64) / 2,
+    backgroundColor: "#111827",
+    padding: 16,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: "rgba(234, 179, 8, 0.3)",
+    overflow: "hidden",
+    shadowColor: "rgba(202, 138, 4, 0.35)",
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 1,
+    shadowRadius: 18,
+    elevation: 3,
+  },
+  privateGateGlow: {
+    position: "absolute",
+    top: -10,
+    right: -10,
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: "rgba(234, 179, 8, 0.12)",
+  },
+  privateGateIconBg: {
+    width: 48,
+    height: 48,
+    borderRadius: 12,
+    backgroundColor: "rgba(234, 179, 8, 0.14)",
+    borderWidth: 1,
+    borderColor: "rgba(234, 179, 8, 0.2)",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 12,
+  },
+  privateGateHeaderRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 4,
+  },
+  privateGateTitle: {
+    fontSize: 14,
+    fontWeight: "bold" as "bold",
+    color: "#FFFFFF",
+  },
+  privateGateDescription: {
+    fontSize: 12,
+    color: "#9CA3AF",
+    lineHeight: 18,
+  },
+  privateGateAccent: {
+    color: "#EAB308",
+    fontWeight: "600" as "600",
+  },
   statusCard: {
     backgroundColor: "#FFFFFF",
     borderRadius: 16,
@@ -536,22 +626,30 @@ const styles = StyleSheet.create({
     fontWeight: "500" as "500",
     letterSpacing: 1,
   },
-  footer: {
-    paddingVertical: 24,
-    alignItems: "center",
-  },
-  footerLinks: {
+  bottomNav: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 70,
+    backgroundColor: "rgba(255, 255, 255, 0.95)",
+    borderTopWidth: 1,
+    borderTopColor: "#E5E7EB",
     flexDirection: "row",
-    gap: 24,
-    marginBottom: 16,
+    justifyContent: "space-around",
+    alignItems: "flex-end",
+    paddingBottom: 8,
   },
-  footerLink: {
-    fontSize: 12,
-    color: "#9CA3AF",
-    fontWeight: "500" as "500",
+  navItem: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 8,
+    gap: 2,
   },
-  copyright: {
+  navLabel: {
     fontSize: 10,
-    color: "#D1D5DB",
+    fontWeight: "600" as "600",
+    color: "#10B981",
   },
 });
