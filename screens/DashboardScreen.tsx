@@ -18,6 +18,7 @@ type RootStackParamList = {
   Loading: undefined;
   Landing: undefined;
   Dashboard: undefined;
+  Generator: undefined;
 };
 
 type DashboardScreenProps = {
@@ -148,6 +149,28 @@ export default function DashboardScreen({ navigation }: DashboardScreenProps) {
         <View style={styles.toolsGrid}>
           {tools.map((tool, index) => {
             const isPrivateGate = tool.title === "Private Gate";
+            const isNamsoGen = tool.title === "Namso Generator";
+
+            if (isNamsoGen) {
+              return (
+                <TouchableOpacity
+                  key={index}
+                  style={styles.toolCard}
+                  activeOpacity={0.7}
+                  onPress={() => navigation.navigate("Generator")}
+                >
+                  <View style={styles.toolIconBg}>
+                    <MaterialIcons
+                      name={tool.icon as any}
+                      size={28}
+                      color="#10B981"
+                    />
+                  </View>
+                  <Text style={styles.toolTitle}>{tool.title}</Text>
+                  <Text style={styles.toolDescription}>{tool.description}</Text>
+                </TouchableOpacity>
+              );
+            }
 
             if (isPrivateGate) {
               return (

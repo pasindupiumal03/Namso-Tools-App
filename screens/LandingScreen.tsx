@@ -28,7 +28,7 @@ export default function LandingScreen({ navigation }: LandingScreenProps) {
   const features = [
     { icon: "generating-tokens", title: "Namso Generator" },
     { icon: "fact-check", title: "Namso Checker" },
-    { icon: "search", title: "BIN Cheackup" },
+    { icon: "search", title: "Bin Checkup" },
     { icon: "lock", title: "Private Gate" },
   ];
 
@@ -124,7 +124,7 @@ export default function LandingScreen({ navigation }: LandingScreenProps) {
           <TouchableOpacity
             style={styles.getStartedButton}
             activeOpacity={0.8}
-            onPress={() => navigation.navigate("Dashboard")}
+            onPress={() => navigation.replace("Dashboard")}
           >
             <LinearGradient
               colors={["#10B981", "#047857"]}

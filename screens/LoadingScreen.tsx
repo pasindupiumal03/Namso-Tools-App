@@ -8,10 +8,12 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type RootStackParamList = {
   Loading: undefined;
   Landing: undefined;
+  Dashboard: undefined;
 };
 
 type LoadingScreenProps = {
@@ -20,6 +22,7 @@ type LoadingScreenProps = {
 
 export default function LoadingScreen({ navigation }: LoadingScreenProps) {
   const scaleAnim = useRef(new Animated.Value(0.9)).current;
+  const FIRST_OPEN_KEY = "has_opened_app_once";
 
   useEffect(() => {
     Animated.loop(
@@ -37,12 +40,35 @@ export default function LoadingScreen({ navigation }: LoadingScreenProps) {
       ])
     ).start();
 
-    const timer = setTimeout(() => {
-      navigation.replace("Landing");
-    }, 2500);
+    let isMounted = true;
 
-    return () => clearTimeout(timer);
-  }, []);
+    const checkFirstOpen = async () => {
+      try {
+        const hasOpened = await AsyncStorage.getItem(FIRST_OPEN_KEY);
+
+        setTimeout(async () => {
+          if (!isMounted) {
+            return;
+          }
+
+          if (hasOpened) {
+            navigation.replace("Dashboard");
+          } else {
+            await AsyncStorage.setItem(FIRST_OPEN_KEY, "true");
+            navigation.replace("Landing");
+          }
+        }, 2500);
+      } catch {
+        navigation.replace("Landing");
+      }
+    };
+
+    checkFirstOpen();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [navigation]);
 
   return (
     <LinearGradient colors={["#F6FFFB", "#E8FFF4"]} style={styles.container}>
