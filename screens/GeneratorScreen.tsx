@@ -22,6 +22,7 @@ type RootStackParamList = {
   Landing: undefined;
   Dashboard: undefined;
   Generator: undefined;
+  Checker: undefined;
 };
 
 type GeneratorScreenProps = {

@@ -5,12 +5,14 @@ import LoadingScreen from "./screens/LoadingScreen";
 import LandingScreen from "./screens/LandingScreen";
 import DashboardScreen from "./screens/DashboardScreen";
 import GeneratorScreen from "./screens/GeneratorScreen";
+import CheckerScreen from "./screens/CheckerScreen";
 
 export type RootStackParamList = {
   Loading: undefined;
   Landing: undefined;
   Dashboard: undefined;
   Generator: undefined;
+  Checker: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -23,6 +25,7 @@ export default function App() {
         <Stack.Screen name="Landing" component={LandingScreen} />
         <Stack.Screen name="Dashboard" component={DashboardScreen} />
         <Stack.Screen name="Generator" component={GeneratorScreen} />
+        <Stack.Screen name="Checker" component={CheckerScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
