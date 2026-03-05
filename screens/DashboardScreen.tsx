@@ -19,6 +19,7 @@ type RootStackParamList = {
   Landing: undefined;
   Dashboard: undefined;
   Generator: undefined;
+  Checker: undefined;
 };
 
 type DashboardScreenProps = {
@@ -197,11 +198,17 @@ export default function DashboardScreen({ navigation }: DashboardScreenProps) {
               );
             }
 
+            const isNamesoChecker = tool.title === "Namso Checker";
             return (
               <TouchableOpacity
                 key={index}
                 style={styles.toolCard}
                 activeOpacity={0.7}
+                onPress={() => {
+                  if (isNamesoChecker) {
+                    navigation.navigate("Checker");
+                  }
+                }}
               >
                 <View style={styles.toolIconBg}>
                   <MaterialIcons
