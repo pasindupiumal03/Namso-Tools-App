@@ -20,6 +20,7 @@ type RootStackParamList = {
   Dashboard: undefined;
   Generator: undefined;
   Checker: undefined;
+  BINCheckup: undefined;
 };
 
 type DashboardScreenProps = {
@@ -199,6 +200,7 @@ export default function DashboardScreen({ navigation }: DashboardScreenProps) {
             }
 
             const isNamesoChecker = tool.title === "Namso Checker";
+            const isBINCheckup = tool.title === "BIN Checkup";
             return (
               <TouchableOpacity
                 key={index}
@@ -207,6 +209,8 @@ export default function DashboardScreen({ navigation }: DashboardScreenProps) {
                 onPress={() => {
                   if (isNamesoChecker) {
                     navigation.navigate("Checker");
+                  } else if (isBINCheckup) {
+                    navigation.navigate("BINCheckup");
                   }
                 }}
               >
