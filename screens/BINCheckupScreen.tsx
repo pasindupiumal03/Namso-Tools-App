@@ -34,6 +34,7 @@ type RootStackParamList = {
   Generator: undefined;
   Checker: undefined;
   BINCheckup: undefined;
+  PrivateGate: undefined;
 };
 
 type BINCheckupScreenProps = {
@@ -275,6 +276,7 @@ export default function BINCheckupScreen({ navigation }: BINCheckupScreenProps) 
               <TouchableOpacity
                 style={styles.premiumActivateButton}
                 activeOpacity={0.8}
+                onPress={() => navigation.navigate("PrivateGate")}
               >
                 <LinearGradient
                   colors={["#F59E0B", "#D97706"]}

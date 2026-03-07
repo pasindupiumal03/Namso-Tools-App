@@ -122,6 +122,7 @@ export default function DashboardScreen({ navigation }: DashboardScreenProps) {
               <TouchableOpacity
                 style={styles.activateButton}
                 activeOpacity={0.8}
+                onPress={() => navigation.navigate("PrivateGate")}
               >
                 <LinearGradient
                   colors={["#EAB308", "#CA8A04"]}

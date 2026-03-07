@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   useWindowDimensions,
+  Linking,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -223,7 +224,11 @@ export default function PrivateGateScreen({ navigation }: PrivateGateScreenProps
 
         {/* CTA Buttons */}
         <View style={styles.ctaButtons}>
-          <TouchableOpacity style={styles.primaryButton} activeOpacity={0.8}>
+          <TouchableOpacity 
+            style={styles.primaryButton} 
+            activeOpacity={0.8}
+            onPress={() => Linking.openURL('https://www.mrchecker.live/lifetime-access')}
+          >
             <LinearGradient
               colors={["#D4AF37", "#FDE68A", "#D4AF37"]}
               start={{ x: 0, y: 0 }}
@@ -234,7 +239,11 @@ export default function PrivateGateScreen({ navigation }: PrivateGateScreenProps
               <Text style={styles.primaryButtonText}>Get Unlimited Access</Text>
             </LinearGradient>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.secondaryButton} activeOpacity={0.8}>
+          <TouchableOpacity 
+            style={styles.secondaryButton} 
+            activeOpacity={0.8}
+            onPress={() => Linking.openURL('https://t.me/namsolive')}
+          >
             <MaterialIcons name="chat" size={18} color="#FFF" />
             <Text style={styles.secondaryButtonText}>Join VIP Channel</Text>
           </TouchableOpacity>
@@ -440,12 +449,20 @@ export default function PrivateGateScreen({ navigation }: PrivateGateScreenProps
             </View>
           </View>
 
-          <TouchableOpacity style={styles.cryptoButton} activeOpacity={0.8}>
+          <TouchableOpacity 
+            style={styles.cryptoButton} 
+            activeOpacity={0.8}
+            onPress={() => Linking.openURL('https://www.mrchecker.live/lifetime-access')}
+          >
             <MaterialIcons name="currency-bitcoin" size={20} color="#FFF" />
             <Text style={styles.cryptoButtonText}>Pay with Crypto ($49)</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.adminButton} activeOpacity={0.8}>
+          <TouchableOpacity 
+            style={styles.adminButton} 
+            activeOpacity={0.8}
+            onPress={() => Linking.openURL('https://t.me/mrcheckeradmin')}
+          >
             <MaterialIcons name="support-agent" size={20} color="#FFF" />
             <Text style={styles.adminButtonText}>Contact Admin</Text>
           </TouchableOpacity>
@@ -500,7 +517,11 @@ export default function PrivateGateScreen({ navigation }: PrivateGateScreenProps
                   </View>
                 </View>
 
-                <TouchableOpacity style={styles.altPlanButtonBasic} activeOpacity={0.85}>
+                <TouchableOpacity 
+                  style={styles.altPlanButtonBasic} 
+                  activeOpacity={0.85}
+                  onPress={() => Linking.openURL('https://www.mrchecker.live/lifetime-access')}
+                >
                   <MaterialIcons name="shopping-cart" size={16} color="#FFF" />
                   <Text style={styles.altPlanButtonText}>Get Ultimate ($19)</Text>
                 </TouchableOpacity>
@@ -558,7 +579,11 @@ export default function PrivateGateScreen({ navigation }: PrivateGateScreenProps
                   </View>
                 </View>
 
-                <TouchableOpacity style={styles.altPlanButtonPro} activeOpacity={0.85}>
+                <TouchableOpacity 
+                  style={styles.altPlanButtonPro} 
+                  activeOpacity={0.85}
+                  onPress={() => Linking.openURL('https://www.mrchecker.live/lifetime-access')}
+                >
                   <MaterialIcons name="shopping-cart" size={16} color="#FFF" />
                   <Text style={styles.altPlanButtonText}>Get PRO ($29)</Text>
                 </TouchableOpacity>
@@ -618,7 +643,11 @@ export default function PrivateGateScreen({ navigation }: PrivateGateScreenProps
                   </View>
                 </View>
 
-                <TouchableOpacity style={styles.altPlanButtonPro} activeOpacity={0.85}>
+                <TouchableOpacity 
+                  style={styles.altPlanButtonPro} 
+                  activeOpacity={0.85}
+                  onPress={() => Linking.openURL('https://www.mrchecker.live/lifetime-access')}
+                >
                   <MaterialIcons name="shopping-cart" size={16} color="#FFF" />
                   <Text style={styles.altPlanButtonText}>Get PRO ($29)</Text>
                 </TouchableOpacity>
@@ -667,7 +696,11 @@ export default function PrivateGateScreen({ navigation }: PrivateGateScreenProps
                   </View>
                 </View>
 
-                <TouchableOpacity style={styles.altPlanButtonBasic} activeOpacity={0.85}>
+                <TouchableOpacity 
+                  style={styles.altPlanButtonBasic} 
+                  activeOpacity={0.85}
+                  onPress={() => Linking.openURL('https://www.mrchecker.live/lifetime-access')}
+                >
                   <MaterialIcons name="shopping-cart" size={16} color="#FFF" />
                   <Text style={styles.altPlanButtonText}>Get Ultimate ($19)</Text>
                 </TouchableOpacity>
@@ -786,13 +819,22 @@ export default function PrivateGateScreen({ navigation }: PrivateGateScreenProps
         {/* Footer */}
         <View style={styles.footerSection}>
           <View style={styles.footerLinks}>
-            <TouchableOpacity activeOpacity={0.8}>
+            <TouchableOpacity 
+              activeOpacity={0.8}
+              onPress={() => Linking.openURL('https://www.mrchecker.live/privacy')}
+            >
               <Text style={styles.footerLinkText}>Privacy Policy</Text>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.8}>
+            <TouchableOpacity 
+              activeOpacity={0.8}
+              onPress={() => Linking.openURL('https://www.mrchecker.live/terms')}
+            >
               <Text style={styles.footerLinkText}>Terms of Service</Text>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.8}>
+            <TouchableOpacity 
+              activeOpacity={0.8}
+              onPress={() => Linking.openURL('https://www.mrchecker.live/contact')}
+            >
               <Text style={styles.footerLinkText}>Contact Us</Text>
             </TouchableOpacity>
           </View>
