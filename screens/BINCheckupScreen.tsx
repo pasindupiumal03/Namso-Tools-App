@@ -241,7 +241,18 @@ export default function BINCheckupScreen({ navigation }: BINCheckupScreenProps) 
             style={styles.premiumCardBorder}
           >
             <View style={styles.premiumCardInner}>
-              <View style={styles.premiumCardGlow} />
+              <LinearGradient
+                colors={[
+                  "rgba(245, 158, 11, 0.22)",
+                  "rgba(245, 158, 11, 0.12)",
+                  "rgba(245, 158, 11, 0.04)",
+                  "rgba(245, 158, 11, 0.01)",
+                ]}
+                locations={[0, 0.35, 0.75, 1]}
+                start={{ x: 1, y: 0 }}
+                end={{ x: 0, y: 1 }}
+                style={styles.premiumCardGlow}
+              />
               
               <View style={styles.premiumCardHeader}>
                 <View style={styles.premiumIconBg}>
@@ -605,12 +616,12 @@ const styles = StyleSheet.create({
   },
   premiumCardGlow: {
     position: "absolute",
-    top: -20,
-    right: -20,
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    backgroundColor: "rgba(245, 158, 11, 0.1)",
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    borderRadius: 12,
+    opacity: 0.42,
   },
   premiumCardHeader: {
     flexDirection: "row",

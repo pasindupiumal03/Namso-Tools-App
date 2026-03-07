@@ -7,6 +7,7 @@ import DashboardScreen from "./screens/DashboardScreen";
 import GeneratorScreen from "./screens/GeneratorScreen";
 import CheckerScreen from "./screens/CheckerScreen";
 import BINCheckupScreen from "./screens/BINCheckupScreen";
+import PrivateGateScreen from "./screens/PrivateGateScreen";
 
 export type RootStackParamList = {
   Loading: undefined;
@@ -15,6 +16,7 @@ export type RootStackParamList = {
   Generator: undefined;
   Checker: undefined;
   BINCheckup: undefined;
+  PrivateGate: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -29,6 +31,7 @@ export default function App() {
         <Stack.Screen name="Generator" component={GeneratorScreen} />
         <Stack.Screen name="Checker" component={CheckerScreen} />
         <Stack.Screen name="BINCheckup" component={BINCheckupScreen} />
+        <Stack.Screen name="PrivateGate" component={PrivateGateScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

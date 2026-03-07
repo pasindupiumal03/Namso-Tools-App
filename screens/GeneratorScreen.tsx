@@ -282,8 +282,19 @@ export default function GeneratorScreen({
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
           >
-            <View style={styles.premiumBgTop} />
-            <View style={styles.premiumBgBottom} />
+            {/* Background glow */}
+            <LinearGradient
+              colors={[
+                "rgba(234, 179, 8, 0.22)",
+                "rgba(234, 179, 8, 0.12)",
+                "rgba(234, 179, 8, 0.04)",
+                "rgba(234, 179, 8, 0.01)",
+              ]}
+              locations={[0, 0.35, 0.75, 1]}
+              start={{ x: 1, y: 0 }}
+              end={{ x: 0, y: 1 }}
+              style={styles.premiumBgGlow}
+            />
 
             <View style={styles.premiumContent}>
               <View style={styles.eliteBadge}>
@@ -807,23 +818,14 @@ const styles = StyleSheet.create({
     position: "relative",
     overflow: "hidden",
   },
-  premiumBgTop: {
+  premiumBgGlow: {
     position: "absolute",
-    top: -64,
-    right: -64,
-    width: 192,
-    height: 192,
-    backgroundColor: "rgba(234, 179, 8, 0.1)",
-    borderRadius: 96,
-  },
-  premiumBgBottom: {
-    position: "absolute",
-    bottom: -40,
-    left: -40,
-    width: 128,
-    height: 128,
-    backgroundColor: "rgba(234, 179, 8, 0.05)",
-    borderRadius: 64,
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    borderRadius: 16,
+    opacity: 0.42,
   },
   premiumContent: {
     position: "relative",
