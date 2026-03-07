@@ -14,6 +14,9 @@ type RootStackParamList = {
   Loading: undefined;
   Landing: undefined;
   Dashboard: undefined;
+  Generator: undefined;
+  Checker: undefined;
+  BINCheckup: undefined;
 };
 
 type LoadingScreenProps = {

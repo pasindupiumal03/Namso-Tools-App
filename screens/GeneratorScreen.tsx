@@ -23,6 +23,7 @@ type RootStackParamList = {
   Dashboard: undefined;
   Generator: undefined;
   Checker: undefined;
+  BINCheckup: undefined;
 };
 
 type GeneratorScreenProps = {
