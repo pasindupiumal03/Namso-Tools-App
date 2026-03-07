@@ -24,6 +24,7 @@ type RootStackParamList = {
   Generator: undefined;
   Checker: undefined;
   BINCheckup: undefined;
+  PrivateGate: undefined;
 };
 
 type GeneratorScreenProps = {
@@ -318,6 +319,7 @@ export default function GeneratorScreen({
               <TouchableOpacity
                 style={styles.activateButton}
                 activeOpacity={0.8}
+                onPress={() => navigation.navigate("PrivateGate")}
               >
                 <LinearGradient
                   colors={["#EAB308", "#CA8A04"]}
