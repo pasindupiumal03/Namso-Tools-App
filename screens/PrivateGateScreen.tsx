@@ -22,6 +22,9 @@ type RootStackParamList = {
   Checker: undefined;
   BINCheckup: undefined;
   PrivateGate: undefined;
+  History: undefined;
+  Profile: undefined;
+  Settings: undefined;
 };
 
 type PrivateGateScreenProps = {
@@ -861,11 +864,15 @@ export default function PrivateGateScreen({ navigation }: PrivateGateScreenProps
             activeOpacity={0.7}
             onPress={() => navigation.navigate("Dashboard")}
           >
-            <MaterialIcons name="construction" size={24} color="#9CA3AF" />
+            <MaterialIcons name="dashboard" size={24} color="#9CA3AF" />
             <Text style={styles.navLabel}>Tools</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.navItem} activeOpacity={0.7}>
+          <TouchableOpacity 
+            style={styles.navItem} 
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate("History")}
+          >
             <MaterialIcons name="history" size={24} color="#9CA3AF" />
             <Text style={styles.navLabel}>History</Text>
           </TouchableOpacity>
@@ -881,12 +888,20 @@ export default function PrivateGateScreen({ navigation }: PrivateGateScreenProps
             <Text style={styles.navLabelActive}>Premium</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.navItem} activeOpacity={0.7}>
-            <MaterialIcons name="person" size={24} color="#9CA3AF" />
+          <TouchableOpacity
+            style={styles.navItem}
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate("Profile")}
+          >
+            <MaterialIcons name="account-circle" size={24} color="#9CA3AF" />
             <Text style={styles.navLabel}>Profile</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.navItem} activeOpacity={0.7}>
+          <TouchableOpacity
+            style={styles.navItem}
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate("Settings")}
+          >
             <MaterialIcons name="settings" size={24} color="#9CA3AF" />
             <Text style={styles.navLabel}>Settings</Text>
           </TouchableOpacity>
