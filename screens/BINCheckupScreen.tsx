@@ -15,6 +15,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import * as FileSystem from "expo-file-system/legacy";
 import { Asset } from "expo-asset";
+import { saveHistoryItem } from "../utils/historyUtils";
 
 const { width } = Dimensions.get("window");
 
@@ -35,6 +36,9 @@ type RootStackParamList = {
   Checker: undefined;
   BINCheckup: undefined;
   PrivateGate: undefined;
+  History: undefined;
+  Profile: undefined;
+  Settings: undefined;
 };
 
 type BINCheckupScreenProps = {
@@ -165,6 +169,14 @@ export default function BINCheckupScreen({ navigation }: BINCheckupScreenProps) 
 
         setBinData(parsed);
         setNotFound(false);
+        
+        // Save to history
+        await saveHistoryItem(
+          "bin",
+          bin,
+          "success",
+          `${parsed.brand} | ${parsed.type} | ${parsed.bank}`
+        );
       } else {
         setNotFound(true);
         setBinData(null);
@@ -197,7 +209,11 @@ export default function BINCheckupScreen({ navigation }: BINCheckupScreenProps) 
             Namso<Text style={styles.logoAccent}>BIN</Text>
           </Text>
         </View>
-        <TouchableOpacity style={styles.settingsButton}>
+        <TouchableOpacity
+          style={styles.settingsButton}
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate("Settings")}
+        >
           <MaterialIcons name="settings" size={24} color="#10B981" />
         </TouchableOpacity>
       </View>
@@ -513,17 +529,29 @@ export default function BINCheckupScreen({ navigation }: BINCheckupScreenProps) 
           <Text style={styles.navLabel}>Tools</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem} activeOpacity={0.7}>
+        <TouchableOpacity 
+          style={styles.navItem} 
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate("History")}
+        >
           <MaterialIcons name="history" size={26} color="#9CA3AF" />
           <Text style={[styles.navLabel, { color: "#9CA3AF" }]}>History</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem} activeOpacity={0.7}>
+        <TouchableOpacity
+          style={styles.navItem}
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate("Profile")}
+        >
           <MaterialIcons name="account-circle" size={26} color="#9CA3AF" />
           <Text style={[styles.navLabel, { color: "#9CA3AF" }]}>Profile</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem} activeOpacity={0.7}>
+        <TouchableOpacity
+          style={styles.navItem}
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate("Settings")}
+        >
           <MaterialIcons name="settings" size={26} color="#9CA3AF" />
           <Text style={[styles.navLabel, { color: "#9CA3AF" }]}>Settings</Text>
         </TouchableOpacity>

@@ -12,6 +12,9 @@ import { StatusBar } from "expo-status-bar";
 import { MaterialIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import * as Clipboard from "expo-clipboard";
+import { saveHistoryItem } from "../utils/historyUtils";
+import { getSetting } from "../utils/settingsUtils";
 
 const { width } = Dimensions.get("window");
 
@@ -23,6 +26,9 @@ type RootStackParamList = {
   Checker: undefined;
   BINCheckup: undefined;
   PrivateGate: undefined;
+  History: undefined;
+  Profile: undefined;
+  Settings: undefined;
 };
 
 type CheckerScreenProps = {
@@ -142,7 +148,7 @@ export default function CheckerScreen({ navigation }: CheckerScreenProps) {
     unknown: results.filter((r) => r.status === "unknown").length,
   };
 
-  const handleCheckCards = () => {
+  const handleCheckCards = async () => {
     const cardLines = cardInput.split("\n");
     const newResults: CardResult[] = [];
 
@@ -173,6 +179,32 @@ export default function CheckerScreen({ navigation }: CheckerScreenProps) {
     });
 
     setResults(newResults);
+    
+    // Save to history
+    if (newResults.length > 0) {
+      const firstCard = newResults[0];
+      const liveCount = newResults.filter(r => r.status === "live").length;
+      const deadCount = newResults.filter(r => r.status === "dead").length;
+      
+      await saveHistoryItem(
+        "checker",
+        firstCard.cardNumber,
+        firstCard.status === "live" ? "live" : "die",
+        `${firstCard.brand} | ${liveCount} live, ${deadCount} dead | ${newResults.length} checked`
+      );
+
+      // Auto-copy if enabled
+      const autoCopy = await getSetting("autoCopyResults");
+      if (autoCopy) {
+        const liveCards = newResults
+          .filter(r => r.status === "live")
+          .map(r => r.raw)
+          .join("\n");
+        if (liveCards) {
+          await Clipboard.setStringAsync(liveCards);
+        }
+      }
+    }
   };
 
   const handleClearResults = () => {
@@ -219,7 +251,11 @@ export default function CheckerScreen({ navigation }: CheckerScreenProps) {
             Namso<Text style={styles.logoAccent}>Check</Text>
           </Text>
         </View>
-        <TouchableOpacity style={styles.settingsButton}>
+        <TouchableOpacity
+          style={styles.settingsButton}
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate("Settings")}
+        >
           <MaterialIcons name="settings" size={24} color="#10B981" />
         </TouchableOpacity>
       </View>
@@ -451,22 +487,38 @@ export default function CheckerScreen({ navigation }: CheckerScreenProps) {
 
       {/* Bottom Tab Navigation */}
       <View style={styles.bottomNav}>
-        <TouchableOpacity style={styles.navItem} activeOpacity={0.7}>
+        <TouchableOpacity 
+          style={styles.navItem} 
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate("Dashboard")}
+        >
           <MaterialIcons name="dashboard" size={26} color="#10B981" />
           <Text style={styles.navLabel}>Tools</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem} activeOpacity={0.7}>
+        <TouchableOpacity 
+          style={styles.navItem} 
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate("History")}
+        >
           <MaterialIcons name="history" size={26} color="#9CA3AF" />
           <Text style={[styles.navLabel, { color: "#9CA3AF" }]}>History</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem} activeOpacity={0.7}>
+        <TouchableOpacity
+          style={styles.navItem}
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate("Profile")}
+        >
           <MaterialIcons name="account-circle" size={26} color="#9CA3AF" />
           <Text style={[styles.navLabel, { color: "#9CA3AF" }]}>Profile</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem} activeOpacity={0.7}>
+        <TouchableOpacity
+          style={styles.navItem}
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate("Settings")}
+        >
           <MaterialIcons name="settings" size={26} color="#9CA3AF" />
           <Text style={[styles.navLabel, { color: "#9CA3AF" }]}>Settings</Text>
         </TouchableOpacity>
