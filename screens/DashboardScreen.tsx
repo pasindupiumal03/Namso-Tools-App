@@ -21,6 +21,7 @@ type RootStackParamList = {
   Generator: undefined;
   Checker: undefined;
   BINCheckup: undefined;
+  PrivateGate: undefined;
 };
 
 type DashboardScreenProps = {
@@ -81,9 +82,19 @@ export default function DashboardScreen({ navigation }: DashboardScreenProps) {
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
           >
-            {/* Background decorations */}
-            <View style={styles.premiumBgTop} />
-            <View style={styles.premiumBgBottom} />
+            {/* Background glow */}
+            <LinearGradient
+              colors={[
+                "rgba(234, 179, 8, 0.22)",
+                "rgba(234, 179, 8, 0.12)",
+                "rgba(234, 179, 8, 0.04)",
+                "rgba(234, 179, 8, 0.01)",
+              ]}
+              locations={[0, 0.35, 0.75, 1]}
+              start={{ x: 1, y: 0 }}
+              end={{ x: 0, y: 1 }}
+              style={styles.premiumBgGlow}
+            />
 
             <View style={styles.premiumContent}>
               {/* Elite Status Badge */}
@@ -150,8 +161,10 @@ export default function DashboardScreen({ navigation }: DashboardScreenProps) {
 
         <View style={styles.toolsGrid}>
           {tools.map((tool, index) => {
-            const isPrivateGate = tool.title === "Private Gate";
             const isNamsoGen = tool.title === "Namso Generator";
+            const isPrivateGate = tool.title === "Private Gate";
+            const isNamesoChecker = tool.title === "Namso Checker";
+            const isBINCheckup = tool.title === "BIN Checkup";
 
             if (isNamsoGen) {
               return (
@@ -180,8 +193,20 @@ export default function DashboardScreen({ navigation }: DashboardScreenProps) {
                   key={index}
                   style={styles.privateGateCard}
                   activeOpacity={0.9}
+                  onPress={() => navigation.navigate("PrivateGate")}
                 >
-                  <View style={styles.privateGateGlow} />
+                  <LinearGradient
+                    colors={[
+                      "rgba(234, 179, 8, 0.24)",
+                      "rgba(234, 179, 8, 0.14)",
+                      "rgba(234, 179, 8, 0.05)",
+                      "rgba(234, 179, 8, 0.01)",
+                    ]}
+                    locations={[0, 0.35, 0.75, 1]}
+                    start={{ x: 1, y: 0 }}
+                    end={{ x: 0, y: 1 }}
+                    style={styles.privateGateGlow}
+                  />
 
                   <View style={styles.privateGateIconBg}>
                     <MaterialIcons name="lock-open" size={26} color="#EAB308" />
@@ -199,8 +224,6 @@ export default function DashboardScreen({ navigation }: DashboardScreenProps) {
               );
             }
 
-            const isNamesoChecker = tool.title === "Namso Checker";
-            const isBINCheckup = tool.title === "BIN Checkup";
             return (
               <TouchableOpacity
                 key={index}
@@ -211,6 +234,8 @@ export default function DashboardScreen({ navigation }: DashboardScreenProps) {
                     navigation.navigate("Checker");
                   } else if (isBINCheckup) {
                     navigation.navigate("BINCheckup");
+                  } else if (isPrivateGate) {
+                    navigation.navigate("PrivateGate");
                   }
                 }}
               >
@@ -361,23 +386,14 @@ const styles = StyleSheet.create({
     position: "relative",
     overflow: "hidden",
   },
-  premiumBgTop: {
+  premiumBgGlow: {
     position: "absolute",
-    top: -64,
-    right: -64,
-    width: 192,
-    height: 192,
-    backgroundColor: "rgba(234, 179, 8, 0.1)",
-    borderRadius: 96,
-  },
-  premiumBgBottom: {
-    position: "absolute",
-    bottom: -40,
-    left: -40,
-    width: 128,
-    height: 128,
-    backgroundColor: "rgba(234, 179, 8, 0.05)",
-    borderRadius: 64,
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    borderRadius: 16,
+    opacity: 0.42,
   },
   premiumContent: {
     position: "relative",
@@ -551,12 +567,12 @@ const styles = StyleSheet.create({
   },
   privateGateGlow: {
     position: "absolute",
-    top: -10,
-    right: -10,
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    backgroundColor: "rgba(234, 179, 8, 0.12)",
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    borderRadius: 16,
+    opacity: 0.38,
   },
   privateGateIconBg: {
     width: 48,
